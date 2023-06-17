@@ -46,13 +46,19 @@
    renderBoard();
  }
 
- // Função para verificar se o jogo acabou
- // Função para verificar se o jogo acabou
+// Função para verificar se o jogo acabou
 function isGameOver() {
   const winner = getWinner();
   if (winner === 'X' || winner === 'O') {
     setTimeout(() => {
-      alert('O jogador ' + winner + ' venceu!');
+      if (winner === 'O')
+      {
+        alert('A IA venceu!');
+      }
+      else
+      {
+        alert('O jogador ' + winner + ' venceu!');
+      }
       resetGame();
     }, 100);
     return true;
@@ -77,6 +83,7 @@ function getWinner() {
   }
   return null;
 }
+
 
  // Função para redefinir o jogo
  function resetGame() {
@@ -149,12 +156,16 @@ function getWinner() {
    }
  }
 
- // Função para fazer a jogada da IA
- function makeAIMove() {
-   const bestMove = minimax(board, 0, true);
-   makeMove(bestMove, currentPlayer);
-   currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
- }
+// Função para fazer a jogada da IA
+function makeAIMove() {
+  const bestMove = minimax(board, 0, true);
+  makeMove(bestMove, currentPlayer);
+
+  if (!isGameOver()) {
+    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+  }
+}
+
 
  // Inicialização do jogo
  renderBoard();
